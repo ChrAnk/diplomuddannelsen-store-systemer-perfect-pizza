@@ -65,7 +65,7 @@ label, input, textarea {
 							<pre>
 {
 	"rows": [int], // Number of affected rows
-	"data": [guidv4] // GUID to be used the subsequent requests
+	"data": [guidv4] // GUID to be used in the subsequent requests
 }
 							</pre>
 						</td>
