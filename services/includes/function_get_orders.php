@@ -18,7 +18,7 @@ function get_orders(PDO $pdo, $data) {
 
 	if($user_count) {		
 		{
-			$query_orders = 'SELECT `orders`.`area`, `orders`.`item` FROM `orders`';
+			$query_orders = 'SELECT `orders`.`area`, `orders`.`item`, `orders`.`timestamp` FROM `orders`';
 
 			if($data['area'] || $data['from_time']) {
 				$query_orders .= ' WHERE ';
