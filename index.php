@@ -8,6 +8,20 @@ header('Content-Type: text/html; charset=utf-8');
 <html>
 	<head>
 		<title>Perfect Pizza</title>
+
+		<style>
+table {
+	border-collapse: collapse;
+}
+
+td, th {
+	border: 1px solid #000;
+}
+
+label, input, textarea {
+	display: block;
+}
+		</style>
 	</head>
 	<body>
 		<h1>Perfect Pizza</h1>
