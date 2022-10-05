@@ -13,7 +13,7 @@ header('Content-Type: text/html; charset=utf-8');
 		<h1>Perfect Pizza</h1>
 		<section>
 			<h2>Form</h2>
-			<form action="services/receive-order.php" method="post">
+			<form action="services/receive-order/receive-order.php" method="post">
 				<fieldset>
 					<label>
 						JSON
@@ -28,75 +28,120 @@ header('Content-Type: text/html; charset=utf-8');
 		<section>
 			<h2>Queries</h2>
 
-			<section>
-				<h3>Subscribe</h3>
-				<h4>GET</h4>
-				<pre>
+			<table>
+				<thead>
+					<tr>
+						<th>Method</th>
+						<th>Send</th>
+						<th>Return</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>Subscribe (GET)</th>
+						<td>
+							<pre>
 {
-"action": "subscribe",
-"method": "get"
+	"action": "subscribe",
+	"method": "get"
 }
-				</pre>
-
-				<h4>POST</h4>
-				<pre>
+							</pre>
+						</td>
+						<td rowspan="2">
+							<pre>
 {
-"action": "subscribe",
-"method": "post",
-"address": "https://example.com/"
+	"rows": [int], // Number of affected rows
+	"data": [guidv4] // GUID to be used the subsequent requests
 }
-				</pre>
-			</section>
-
-			<section>
-				<h3>Unsubscribe</h3>
-				<pre>
+							</pre>
+						</td>
+					</tr>
+					
+					<tr>
+						<th>Subscribe (POST) (currently disabled)</th>
+						<td>
+							<pre>
 {
-"action": "unsubscribe",
-"guid": "6ccad857-e4fc-2606-70ec-83aa971db62f"
+	"action": "subscribe",
+	"method": "post",
+	"address": [string] // URL to which posts should be sent for each other
 }
-				</pre>
-			</section>
-
-			<section>
-				<h3>Create order</h3>
-				<pre>
+							</pre>
+						</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<th>Unsubscribe</th>
+						<td>
+							<pre>
 {
-"action": "create_order",
-"area": 1,
-"item": 2
+	"action": "unsubscribe",
+	"guid": [guidv4] // GUID to be unsubscribed
 }
-				</pre>
-			</section>
-			
-			<section>
-				<h3>Get orders</h3>
-				<h4>All orders</h4>
-				<pre>
+							</pre>
+						</td>
+						<td>
+							<pre>
 {
-"action": "get_orders",
-"guid": "6ccad857-e4fc-2606-70ec-83aa971db62f"
+	"rows": [int], // Number of affected rows
 }
-				</pre>
-				
-				<h4>All orders for table</h4>
-				<pre>
+							</pre>
+						</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<th>Create order</th>
+						<td>
+							<pre>
 {
-"action": "get_orders",
-"guid": "6ccad857-e4fc-2606-70ec-83aa971db62f",
-"area": 1
+	"action": "create_order",
+	"area": [int], // Table that created order
+	"item": [int] // Item ordered
 }
-				</pre>
-				
-				<h4>All orders after time</h4>
-				<pre>
+							</pre>
+						</td>
+						<td>
+							<pre>
 {
-"action": "get_orders",
-"guid": "6ccad857-e4fc-2606-70ec-83aa971db62f",
-"from_time": "2022-01-02 01:01:01"
+	"rows": [int], // Number of affected rows
 }
-				</pre>
-			</section>
+							</pre>
+						</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<th>Get all orders</th>
+						<td>
+							<pre>
+{
+	"action": "get_orders",
+	"guid": [guidv4], // GUID to confirm identity
+	"area": [int], // Optional - limit to specific table
+	"from_time" [timestamp] // Optional - limit to orders received after specified time
+}
+							</pre>
+						</td>
+						<td>
+							<pre>
+{
+	"rows": [int], // Number of returned rows
+	"data": [
+		{
+			"area": [int], // Table that created order
+			"item": [int], // Item ordered
+			"timestamp": [timestamp] // Timestamp order was received
+		},
+		...
+	]
+}
+							</pre>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</section>
 	</body>
 </html>
